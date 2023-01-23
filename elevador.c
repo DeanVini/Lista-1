@@ -131,6 +131,30 @@ ITEM enesimo(int n, LISTA l)
 }
 
 
+//////////////////////////////////////////////////////////
+
+/*
+  Objetivo: Inverte a lista, fazendo com que o primeiro
+            item fique na posicao do ultimo, o segundo
+            na posicao do penultimo e assim por diante.
+ */
+void inverter(LISTA *l)
+{
+
+   ITEM itemFinal = l->itens[l -> tamanho-1];
+
+
+	for(int i = 0; i < (l -> tamanho)/2; i++){
+		ITEM aux;
+		aux = l -> itens[l->tamanho - (i+1)];
+
+		l -> itens[l->tamanho - (i+1)] = l->itens[i];
+		l->itens[i] = aux;
+	}
+
+}
+
+
 /*
   Objetivo: Inserir o item passado como parametro na posicao i da lista.
             Caso a lista nao esteja cheia e a posicao seja valida, o item
@@ -169,6 +193,9 @@ void destruir(LISTA *l)
 }
 
 
+
+
+
 void lerItens(LISTA *l)
 {
     int n;
@@ -182,6 +209,56 @@ void lerItens(LISTA *l)
         scanf("%s", item.valor);
         inserir(item, l);
     }
+}
+
+//////////////////////////////////////////////////////////
+
+/*
+  Objetivo: Inserir todos os elementos da lista l2 na lista l1,
+            mantendo a sequencia de l2 em l1.
+            Quando a lista l1 nao tem capacidade suficiente para
+            comportar os elementos de da lista l2, a funcao
+            deve retornar false. Caso contrario, quando for
+            possivel concatenar, retorna true.
+ */
+bool concatenar(LISTA *l1, LISTA *l2)
+{
+  
+   for(int i = 0; i < l2 -> tamanho; i++){
+		inserir(l2 -> itens[i], l1);
+	}
+
+	if(l1 -> tamanho > MAX){
+		return false;
+	}
+
+	return true;
+
+}
+
+
+
+
+/////////////////////////////////////////////////////////////////////
+
+// Objetivo: Remove o item contido na posicao pos.
+//           Caso seja possivel, retorna true. Caso contrario, retorna false.
+// Pre-condicao: 0 <= pos < tamanho
+
+bool removerDaPos(int pos, LISTA *l)
+{
+  
+    if ((pos < 0) || (pos >= tamanho(*l))){
+		return false;
+	}
+
+	for(int i = pos; i < l->tamanho; i++){
+		l -> itens[i] = l -> itens[i+1];
+	}
+
+	l->tamanho--;
+	return true;
+
 }
 
 
